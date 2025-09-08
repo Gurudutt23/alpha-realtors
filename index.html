@@ -1,250 +1,753 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alpha Realtors</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Alpha Realtors - Luxury Real Estate</title>
 
-  <!-- Header -->
-  <header class="header">
-  <div class="logo">
-    <img src="images/nav-logo.png" alt="Alpha Realtors Logo">
-    <span class="brand"><a href="#">ALPHA REALTORS</a></span>
-  </div>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#sale">For Sale</a></li>
-        <li><a href="#clients">Clients</a></li>
-        <li><a href="#footer">Contact</a></li>
-      </ul>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- FontAwesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+      /* CSS Variables for a clean, maintainable theme */
+      :root {
+        --primary-gold: #d4af37;
+        --secondary-gold: #b8860b;
+        --dark-bg: #0a0a0a;
+        --card-bg: #1c1c1c;
+        --text-light: #f8f9fa;
+        --text-muted: #adb5bd;
+      }
+
+      body {
+        font-family: 'Montserrat', sans-serif;
+        background: var(--dark-bg);
+        color: var(--text-light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      
+      /* General Link Styling */
+      a {
+        color: var(--primary-gold);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+      a:hover {
+        color: var(--secondary-gold);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: 'Playfair Display', serif;
+        color: var(--primary-gold);
+        font-weight: 700;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: rgba(0, 0, 0, 0.85) !important;
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        padding: 15px 0;
+      }
+
+      .navbar-brand {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+      }
+
+      .navbar-nav .nav-link {
+        color: var(--text-light) !important;
+        font-weight: 500;
+        margin: 0 15px;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: var(--primary-gold) !important;
+      }
+
+      .navbar-nav .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-gold);
+        transition: width 0.3s ease-out;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+      }
+
+    /* Hero Section */
+    #hero-search {
+    height: 100vh; /* Keeps section full screen */
+    min-height: 800px; /* Ensures it looks good on smaller screens */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('./images/STAR.png') no-repeat center center;
+    background-size: contain; /* Makes image smaller but visible */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000; /* Fills empty space around the image */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-light);
+    filter: brightness(0.9) contrast(1.1);
+    }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+      }
+
+      .search-box .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: var(--text-light);
+        transition: all 0.3s ease;
+      }
+
+      .search-box .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .search-box .form-control:focus {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--primary-gold);
+        box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+      }
+
+      /* Buttons */
+      .btn-gold {
+        background: var(--primary-gold);
+        color: var(--dark-bg);
+        font-weight: 700;
+        padding: 14px 32px;
+        border-radius: 30px;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: none;
+      }
+
+      .btn-gold:hover {
+        background: var(--secondary-gold);
+        color: var(--text-light);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+      }
+
+      .btn-outline-light {
+        color: var(--text-light);
+        border-color: var(--text-light);
+        padding: 14px 32px;
+        border-radius: 30px;
+        transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn-outline-light:hover {
+        background: var(--text-light);
+        color: var(--dark-bg);
+        border-color: var(--text-light);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+      }
+      
+      /* Sections */
+      section {
+        padding: 100px 0;
+      }
+      
+      .section-heading {
+        text-align: center;
+        margin-bottom: 60px;
+        position: relative;
+        padding-bottom: 15px;
+        font-size: 3rem;
+      }
+      .section-heading::after {
+        content: '';
+        width: 80px;
+        height: 3px;
+        background: var(--primary-gold);
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+
+      /* Category Cards */
+      .category-card {
+        background: var(--card-bg);
+        transition: all 0.4s ease;
+        cursor: pointer;
+      }
+      .category-card:hover {
+        transform: translateY(-10px);
+        background: #252525;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+      }
+      
+      /* Property Cards */
+      .property-card {
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 15px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        height: 100%;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        position: relative;
+      }
+      .property-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 15px 45px rgba(212, 175, 55, 0.35);
+      }
+      .property-card img {
+        border-radius: 10px;
+        transition: transform 0.5s ease-out;
+      }
+      .property-card:hover img {
+        transform: scale(1.08);
+      }
+
+      /* Client Cards */
+      .client-card {
+        background: var(--card-bg);
+        padding: 25px;
+        border-radius: 15px;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        height: 100%;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      }
+      .client-card:hover {
+        transform: translateY(-12px) scale(1.02);
+        box-shadow: 0 15px 45px rgba(212, 175, 55, 0.35);
+      }
+      .client-card img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 2px solid var(--primary-gold);
+        object-fit: cover;
+      }
+
+      /* Consultant Section */
+      .consultant-img {
+        border: 6px solid var(--primary-gold);
+        box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        border-radius: 50%;
+        width: 220px;
+        height: 220px;
+        object-fit: cover;
+      }
+
+      /* Quote Form */
+      .quote-form {
+        background: var(--card-bg);
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+      .quote-form .form-control,
+      .quote-form .form-select {
+        background: #2a2a2a;
+        border: 1px solid #444;
+        color: var(--text-light);
+        padding: 12px 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .quote-form .form-control:focus,
+      .quote-form .form-select:focus {
+        background: #333;
+        border-color: var(--primary-gold);
+        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.2);
+      }
+
+      /* Footer */
+      #footer {
+        background: var(--card-bg);
+        padding: 60px 0 30px 0;
+        border-top: 3px solid var(--primary-gold);
+      }
+      .social-links a {
+        font-size: 24px;
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        border-radius: 50%;
+        background: #333;
+        color: var(--primary-gold);
+        margin-right: 15px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+      .social-links a:hover {
+        background: var(--primary-gold);
+        color: var(--dark-bg);
+        transform: translateY(-5px) rotate(5deg);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img src="images/nav-logo.png" alt="Logo" height="40" class="me-2" />
+          ALPHA REALTORS
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#categories">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#featured-properties">Properties</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#clients">Clients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#consultant">Consultant</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact-us">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
-  </header>
 
-  <!-- Hero Section -->
-<section class="hero">
-  <div class="hero-text">
-    <h1>Let us help <br> you find your <br> <span style="color: gold;">dream home.</span></h1>
-    <div class="hero-buttons">
-      <a href="#sale" class="btn">Buy a Home</a>
-    </div>
-  </div>
-<div class="hero-img slider">
-  <div class="slides">
-    <img src="images/Logo.png" alt="Luxury Home 1">
-    <img src="images/logo2.jpg" alt="Luxury Home 2">
-    <img src="images/logo3.jpg" alt="Luxury Home 3">
-    <img src="images/logo4.jpg" alt="Luxury Home 4">
-  </div>
-</div>
-</section>
+    <!-- Hero Section -->
+    <section id="hero-search">
+      <div class="overlay"></div>
+      <div class="container position-relative z-1 p-4">
+        <h1 class="display-3 fw-bold">Find Your Dream Home</h1>
+        <p class="lead mt-3">
+          Explore exclusive properties in Pune.
+        </p>
+        <br>
+        <br>
+        <div class="search-box mt-5">
+          <div class="input-group input-group-lg">
+            <input
+              type="text"
+              class="form-control rounded-pill px-4"
+              placeholder="Search by location or property type..."
+            />
+            <button class="btn btn-gold rounded-pill ms-2" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+            <br>
+          <div class="mt-4">
+            <a
+              href="#featured-properties"
+              class="btn btn-outline-light rounded-pill px-4 me-3"
+              >Explore Properties</a
+            >
+            <a href="#contact-us" class="btn btn-gold rounded-pill px-4"
+              >Get a Quote</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Vision Section -->
-  <section class="vision">
-    <div class="vision-img">
-      <img src="images/vision.jpg" alt="Modern Interior">
-    </div>
-    <div class="vision-text">
-      <h2>Our vision is to be the most trusted and respected real estate agency in the city.</h2>
-      <div class="btn-container">
-        <a href="#footer" class="btn-outline">Contact Us</a>
+    <!-- Categories Section -->
+    <section id="categories" class="py-5 bg-dark">
+      <div class="container text-center">
+        <h2 class="section-heading">Explore Our Portfolio</h2>
+        <div class="row g-4 justify-content-center">
+          <div class="col-md-4">
+            <a href="#" class="text-decoration-none">
+              <div class="category-card p-4 rounded shadow-lg text-center">
+                <i class="fas fa-building fa-4x text-gold mb-3"></i>
+                <h4 class="fw-bold">Apartments</h4>
+                <p class="text-muted">
+                  Find modern living spaces in the heart of the city.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="#" class="text-decoration-none">
+              <div class="category-card p-4 rounded shadow-lg text-center">
+                <i class="fas fa-home fa-4x text-gold mb-3"></i>
+                <h4 class="fw-bold">Luxury Villas</h4>
+                <p class="text-muted">
+                  Discover spacious and private villas with exclusive amenities.
+                </p>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="#" class="text-decoration-none">
+              <div class="category-card p-4 rounded shadow-lg text-center">
+                <i class="fas fa-city fa-4x text-gold mb-3"></i>
+                <h4 class="fw-bold">Commercial Spaces</h4>
+                <p class="text-muted">
+                  Invest in prime commercial properties for your business.
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section id="featured-properties" class="container text-center">
+      <h2 class="section-heading">Featured Properties</h2>
+      <div class="row g-4 mt-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="property-card">
+            <img
+              src="images/house1.jpg"
+              class="img-fluid rounded mb-3"
+              alt="Luxury Villa"
+            />
+            <h5>Luxury Villa</h5>
+            <p>₹2.5 Cr · Pune</p>
+            <button
+              class="btn btn-sm btn-gold mt-3"
+              data-bs-toggle="modal"
+              data-bs-target="#propertyModal"
+              data-title="Luxury Villa"
+              data-location="Pune"
+              data-img="https://placehold.co/800x600/1c1c1c/d4af37?text=Luxury+Villa"
+            >View Details</button>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="property-card">
+            <img
+              src="images/house2.jpg"
+              class="img-fluid rounded mb-3"
+              alt="Modern Apartment"
+            />
+            <h5>Modern Apartment</h5>
+            <p>₹90 L · Mumbai</p>
+            <button
+              class="btn btn-sm btn-gold mt-3"
+              data-bs-toggle="modal"
+              data-bs-target="#propertyModal"
+              data-title="Modern Apartment"
+              data-location="Mumbai"
+              data-img="https://placehold.co/800x600/1c1c1c/d4af37?text=Modern+Apartment"
+            >View Details</button>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="property-card">
+            <img
+              src="images/house3.jpg"
+              class="img-fluid rounded mb-3"
+              alt="Commercial Space"
+            />
+            <h5>Commercial Space</h5>
+            <p>₹1.8 Cr · Bangalore</p>
+            <button
+              class="btn btn-sm btn-gold mt-3"
+              data-bs-toggle="modal"
+              data-bs-target="#propertyModal"
+              data-title="Commercial Space"
+              data-location="Bangalore"
+              data-img="https://placehold.co/800x600/1c1c1c/d4af37?text=Commercial+Space"
+            >View Details</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients" class="container text-center">
+      <h2 class="section-heading">Happy Clients</h2>
+      <div class="row g-4 mt-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="client-card h-100">
+            <img src="images/client1.jpg" alt="Client 1" class="mb-3" />
+            <blockquote>
+              “Alpha Realtors made buying our first home stress-free and enjoyable.”
+            </blockquote>
+            <p class="client-name">– Natalia Lowe</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="client-card h-100">
+            <img src="images/client2.jpg" alt="Client 2" class="mb-3" />
+            <blockquote>
+              “Professional, reliable, and always available for questions.”
+            </blockquote>
+            <p class="client-name">– Lillian Pratt</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="client-card h-100">
+            <img src="images/client3.jpg" alt="Client 3" class="mb-3" />
+            <blockquote>“The best deals and a smooth process. Highly recommended!”</blockquote>
+            <p class="client-name">– Elliot Sterling</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Consultant Section -->
+    <section id="consultant" class="container py-5">
+      <h2 class="section-heading">Our Expert Consultant</h2>
+      <div class="row align-items-center g-5">
+        <div class="col-md-4 text-center">
+          <img
+            src="images/consultant1.jpg"
+            alt="Consultant"
+            class="img-fluid consultant-img"
+          />
+        </div>
+        <div class="col-md-8 text-center text-md-start">
+          <h2>Hrushikesh Jagtap</h2>
+          <h4>Founder and Director at PROP RICH</h4>
+          <p class="email text-secondary-gold">rishi.realestate@proprich.in</p>
+          <p>
+            Mr. Hrushikesh Jagtap is an experienced professional in real estate sales.
+            With years of expertise, he navigates the intricacies of property transactions
+            adeptly. His commitment ensures tailored solutions for clients, whether buying,
+            selling, or investing.
+          </p>
+          <a href="#contact-us" class="btn btn-gold mt-4">Connect with Hrushikesh</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact-us" class="container py-5">
+      <h2 class="section-heading">Get a Free Consultation</h2>
+      <div class="row g-5 align-items-center">
+        <div class="col-md-6">
+          <p class="lead text-muted mt-3">
+            Ready to take the next step? Fill out the form or reach out directly to
+            our team. We're here to help you find the perfect property.
+          </p>
+          <ul class="list-unstyled mt-4">
+            <li>
+              <i class="fas fa-phone-alt me-2 text-gold"></i> +91 9876543210
+            </li>
+            <li>
+              <i class="fas fa-envelope me-2 text-gold"></i> contact@alpharealtors.com
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt me-2 text-gold"></i> 123 Luxury Street, Hinjewadi, Pune
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <form class="quote-form">
+            <div class="mb-3">
+              <label for="nameInput" class="form-label">Full Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nameInput"
+                placeholder="John Stewart"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="emailInput" class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="emailInput"
+                placeholder="john@email.com"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="mobileInput" class="form-label">Mobile Number</label>
+              <input
+                type="text"
+                class="form-control"
+                id="mobileInput"
+                placeholder="+91 1234567890"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="infoTextarea" class="form-label">Tell us more about your needs</label>
+              <textarea
+                class="form-control"
+                id="infoTextarea"
+                rows="4"
+                placeholder="Share your specific requirements or questions..."
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-gold w-100 mt-3">Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4 mb-4 text-center text-md-start">
+            <h3>Alpha Realtors</h3>
+            <p>123 Luxury Street, Hinjewadi, Pune</p>
+            <p>Email: contact@alpharealtors.com</p>
+            <p>Phone: +91 9876543210</p>
+            <div class="social-links mt-4">
+              <a href="#" aria-label="Facebook"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fab fa-twitter"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-md-4 text-center mb-4">
+            <h3>Quick Links</h3>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#categories" class="text-decoration-none">Explore</a>
+              </li>
+              <li>
+                <a href="#featured-properties" class="text-decoration-none"
+                  >Properties</a
+                >
+              </li>
+              <li>
+                <a href="#clients" class="text-decoration-none">Clients</a>
+              </li>
+              <li>
+                <a href="#consultant" class="text-decoration-none"
+                  >Consultant</a
+                >
+              </li>
+              <li>
+                <a href="#contact-us" class="text-decoration-none"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <img
+              src="images/footer.png"
+              alt="Footer Image"
+              class="img-fluid rounded shadow"
+            />
+          </div>
+        </div>
+        <div class="text-center text-muted mt-5 pt-3 border-top border-secondary">
+          <p>&copy; 2024 Alpha Realtors. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Property Details Modal -->
+    <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark border-gold">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title text-gold" id="propertyModalLabel">Property Details</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body p-4">
+            <img id="propertyImg" src="" alt="Property Image" class="img-fluid rounded-lg mb-4 w-100" 
+                 onerror="this.src='https://placehold.co/800x600/1c1c1c/d4af37?text=Image+Not+Found';">
+            <h3 id="propertyTitle" class="text-gold"></h3>
+            <p id="propertyLocation" class="lead text-muted"></p>
+            <p class="text-white">This is a placeholder for more detailed property information. For example, you could include: number of bedrooms, square footage, amenities, and a full description. The image and title are loaded dynamically.</p>
+          </div>
+          <div class="modal-footer border-top-0">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- Properties for Sale -->
-  <section id="sale" class="properties">
-    <h2 style="font-size:xxx-large;">Properties for Sale</h2>
-    <div class="property-grid">
-      <div class="property-card">
-        <img src="images/house1.jpg" alt="">
-        <h3>Rowhouse</h3>
-        <p>123 Anywhere St, Any City<br>2 Beds | 1 Bath | 1 Car</p>
-      </div>
-      <div class="property-card">
-        <img src="images/house2.jpg" alt="">
-        <h3>Condo</h3>
-        <p>123 Anywhere St, Any City<br>1 Bed | 2 Baths | 1 Car</p>
-      </div>
-      <div class="property-card">
-        <img src="images/house3.jpg" alt="">
-        <h3>Single-family home</h3>
-        <p>123 Anywhere St, Any City<br>3 Beds | 2 Baths | 2 Cars</p>
-      </div>
-    </div>
-  </section>
+    <!-- Bootstrap JS for nav toggle, etc. (no custom JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Wait for the DOM to be fully loaded before adding the event listener
+      window.addEventListener('DOMContentLoaded', () => {
+        // Modal data loader
+        const propertyModal = document.getElementById('propertyModal');
+        propertyModal.addEventListener('show.bs.modal', event => {
+          // Get the button that triggered the modal
+          const button = event.relatedTarget;
+          
+          // Extract info from data-bs-* attributes
+          const title = button.getAttribute('data-title');
+          const location = button.getAttribute('data-location');
+          const img = button.getAttribute('data-img');
 
+          // Update the modal's content.
+          const modalTitle = propertyModal.querySelector('#propertyTitle');
+          const modalLocation = propertyModal.querySelector('#propertyLocation');
+          const modalImg = propertyModal.querySelector('#propertyImg');
 
-<!-- Clients -->
-<section id="clients" class="clients">
-  <h2 class="section-title">Happy Clients</h2>
-  <div class="client-grid">
-    
-    <div class="client-card">
-      <img src="images/client1.jpg" alt="Natalia Lowe">
-      <blockquote>
-        “Alpha Realtors made buying our first home stress-free and enjoyable.”
-      </blockquote>
-      <p class="client-name">– Gurudutt Sahu</p>
-    </div>
-
-    <div class="client-card">
-      <img src="images/client2.jpg" alt="Lillian Pratt">
-      <blockquote>
-        “Professional, reliable, and always available for questions.”
-      </blockquote>
-      <p class="client-name">– Kavi Shake Her</p>
-    </div>
-
-    <div class="client-card">
-      <img src="images/client3.jpg" alt="Elliot Sterling">
-      <blockquote>
-        “The best deals and smooth process. Highly recommended!”
-      </blockquote>
-      <p class="client-name">– Experience Pratap Singh</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- Consultant Section -->
-<section id="consultant" class="consultant">
-  <div class="consultant-container">
-    
-    <!-- Left side: Image -->
-    <div class="consultant-img">
-      <img src="images/consultant1.jpg" alt="Hrushikesh Jagtap - Founder & Director">
-    </div>
-
-    <!-- Right side: Info -->
-    <div class="consultant-text">
-      <h2>ANIKT OJHA</h2>
-      <h4>Founder & Director</h4>
-      <p class="email">📧 ankitojha69@gmail.com</p>
-      <p>
-        Mr. Ankit Ojha is an experienced professional in real estate sales. 
-        Holding several years of expertise, he navigates the intricacies of property 
-        transactions adeptly. His commitment to excellence ensures tailored solutions 
-        for clients, whether buying, selling, or investing.
-      </p>
-      <a href="#footer" class="btn">Contact Consultant</a>
-    </div>
-    
-  </div>
-</section>
-
-<!-- Quote Form Section -->
-<section id="quote" class="quote-section">
-  <div class="quote-container">
-    
-    <!-- Left: Heading -->
-    <div class="quote-text">
-      <h2>LET’S MAKE YOUR<br><span>DREAM</span><br>INTO REALITY</h2>
-      <p>Get a Quote</p>
-    </div>
-    
-    <!-- Right: Form -->
-    <form class="quote-form">
-      <label>Hi! I am</label>
-      <input type="text" placeholder="John Stewart" required>
-
-      <label>My Email is</label>
-      <input type="email" placeholder="johnstewart@email.com" required>
-
-      <label>& Mobile Number is</label>
-      <input type="tel" placeholder="+91 1234567890" required>
-
-      <label>I am looking for</label>
-      <select>
-        <option>Please choose an option</option>
-        <option>Residential Property</option>
-        <option>Commercial Property</option>
-        <option>Land / Plot</option>
-      </select>
-
-      <label>Time for project possession</label>
-      <select>
-        <option>Please choose an option</option>
-        <option>Immediate</option>
-        <option>Within 3 months</option>
-        <option>Within 6 months</option>
-        <option>After 1 year</option>
-      </select>
-
-      <label>My budget is</label>
-      <select>
-        <option>Please choose an option</option>
-        <option>Below ₹50 Lakhs</option>
-        <option>₹50 Lakhs – ₹1 Cr</option>
-        <option>₹1 Cr – ₹2 Cr</option>
-        <option>Above ₹2 Cr</option>
-      </select>
-
-      <label>Here is some more information about my requirement</label>
-      <textarea placeholder="Requirement Info..." rows="4"></textarea>
-
-      <button type="submit" class="btn-submit">Submit</button>
-    </form>
-    
-  </div>
-</section>
-
-<!-- Footer -->
-<footer id="footer">
-  <div class="footer-container">
-    
-    <!-- Left -->
-    <div class="footer-left">
-      <h3>Alpha Realtors</h3>
-      <p>
-        Office No. 12, 3rd Floor,<br>
-        Skyline Business Park,<br>
-        Hinjewadi, Pune, India
-      </p>
-      <p><strong>Phone:</strong> +91 9876543210</p>
-      <p><strong>Email:</strong> info@alpharealtors.com</p>
-
-      <div class="social-links">
-        <a href="https://facebook.com" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" width="25">
-        </a>
-        <a href="https://twitter.com" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" width="25">
-        </a>
-        <a href="https://instagram.com" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram" width="25">
-        </a>
-        <a href="https://linkedin.com" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" width="25">
-        </a>
-      </div>
-    </div>
-
-    <!-- Center -->
-    <div class="footer-center">
-      <h3>Quick Links</h3>
-      <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#vision">About Us</a></li>
-        <li><a href="#properties">Properties</a></li>
-        <li><a href="#clients">Clients</a></li>
-        <li><a href="#quote">Get a Quote</a></li>
-      </ul>
-    </div>
-
-    <!-- Right -->
-    <div class="footer-right">
-      <img src="images/footer.png" alt="Alpha Realtors Logo">
-    </div>
-
-  </div>
-</footer>
-
-</body>
+          modalTitle.textContent = title;
+          modalLocation.textContent = location;
+          modalImg.src = img;
+        });
+      });
+    </script>
+  </body>
 </html>
-
